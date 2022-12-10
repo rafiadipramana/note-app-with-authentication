@@ -11,17 +11,17 @@ import {
 import RoundIconBtn from "../components/RoundIconBtn";
 import colors from "../misc/colors";
 
-const Intro = ({ onFinish }) => {
+const Intro = ({ navigation }) => {
   const [name, setName] = useState("");
   const handleOnChangeText = (text) => setName(text);
   const [password, setPassword] = useState("");
   const handleOnChangePassword = (text) => setPassword(text);
 
-  const handleSubmit = async () => {
-    const user = { name: name };
-    await AsyncStorage.setItem("user", JSON.stringify(user));
-    if (onFinish) onFinish();
-  };
+  // const handleSubmit = async () => {
+  //   const user = { name: name };
+  //   await AsyncStorage.setItem("user", JSON.stringify(user));
+  //   if (onFinish) onFinish();
+  // };
 
   return (
     <>
@@ -43,7 +43,9 @@ const Intro = ({ onFinish }) => {
           style={styles.textInput}
         />
         {name.trim().length >= 3 ? (
-          <RoundIconBtn antIconName="arrowright" onPress={handleSubmit} />
+          <RoundIconBtn antIconName="arrowright" onPress={() => {
+            navigation.navigate("NoteScreen")
+          }} />
         ) : null}
       </View>
     </>
@@ -70,16 +72,12 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   mainTitle: {
-    alignSelf: "flex-start",
-    paddingLeft: 25,
     opacity: 0.5,
     fontSize: 20,
     color: 'black',
     fontWeight: '700'
   },
   subTitle: {
-    alignSelf: "flex-start",
-    paddingLeft: 25,
     marginBottom: 10,
     fontSize: 35,
     fontWeight: 'bold',

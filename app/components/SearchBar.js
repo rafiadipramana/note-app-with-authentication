@@ -27,12 +27,12 @@ const SearchBar = ({ containerStyle, value, onClear, onChangeText }) => {
 
 const styles = StyleSheet.create({
   searchBar: {
-    borderWidth: 2,
-    borderColor: colors.PRIMARY,
+    marginTop: 15,
     height: 40,
     borderRadius: 10,
-    paddingLeft: 15,
+    paddingLeft: 10,
     fontSize: 16,
+    backgroundColor: colors.SECONDARY
   },
   container: {
     justifyContent: 'center',

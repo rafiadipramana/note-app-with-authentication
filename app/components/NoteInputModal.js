@@ -79,7 +79,7 @@ const NoteInputModal = ({ visible, onClose, onSubmit, note, isEdit }) => {
             {title.trim() || desc.trim() ? (
               <RoundIconBtn
                 size={15}
-                style={{ marginLeft: 15 }}
+                style={{ backgroundColor: colors.ERROR, marginLeft: 15 }}
                 antIconName='close'
                 onPress={closeModal}
               />
@@ -100,8 +100,9 @@ const styles = StyleSheet.create({
     paddingTop: 15,
   },
   input: {
-    borderBottomWidth: 2,
-    borderBottomColor: colors.PRIMARY,
+    borderRadius: 10,
+    padding: 10,
+    backgroundColor: colors.SECONDARY,
     fontSize: 20,
     color: colors.DARK,
   },

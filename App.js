@@ -1,22 +1,22 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StatusBar } from "expo-status-bar";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
 
-import Auth from './app/screens/Auth';
-import NoteScreen from './app/screens/NoteScreen';
-import NoteDetail from './app/components/NoteDetail';
-import NoteProvider from './app/contexts/NoteProvider';
+import Auth from "./app/screens/Auth";
+import NoteScreen from "./app/screens/NoteScreen";
+import NoteDetail from "./app/components/NoteDetail";
+import NoteProvider from "./app/contexts/NoteProvider";
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [user, setUser] = useState({});
   const [isAppFirstTimeOpen, setIsAppFirstTimeOpen] = useState(false);
   const findUser = async () => {
-    const result = await AsyncStorage.getItem('user');
+    const result = await AsyncStorage.getItem("user");
 
     if (result === null) return setIsAppFirstTimeOpen(true);
 
@@ -28,18 +28,24 @@ export default function App() {
     findUser();
   }, []);
 
-  const RenderNoteScreen = props => <NoteScreen {...props} user={user} />;
+  const RenderNoteScreen = (props) => <NoteScreen {...props} user={user} />;
 
   if (isAppFirstTimeOpen) return <Auth onFinish={findUser} />;
   return (
     <NavigationContainer>
       <NoteProvider>
         <Stack.Navigator
-          screenOptions={{ headerTitle: '', headerTransparent: true }}
+          screenOptions={{ headerTitle: "", headerTransparent: true }}
         >
-          <Stack.Screen component={Auth} name='Auth' />
-          <Stack.Screen component={RenderNoteScreen} name='NoteScreen' />
-          <Stack.Screen component={NoteDetail} name='NoteDetail' />
+          <Stack.Screen component={Auth} name="Auth" />
+          <Stack.Screen
+            component={RenderNoteScreen}
+            name="NoteScreen"
+            options={{
+              headerBackVisible: false,
+            }}
+          />
+          <Stack.Screen component={NoteDetail} name="NoteDetail" />
         </Stack.Navigator>
       </NoteProvider>
     </NavigationContainer>
@@ -49,8 +55,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

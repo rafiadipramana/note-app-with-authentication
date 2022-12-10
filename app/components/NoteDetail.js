@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View, Alert } from 'react-native';
-import { useHeaderHeight } from '@react-navigation/stack';
 import colors from '../misc/colors';
 import RoundIconBtn from './RoundIconBtn';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -21,7 +20,6 @@ const formatDate = ms => {
 
 const NoteDetail = props => {
   const [note, setNote] = useState(props.route.params.note);
-  const headerHeight = useHeaderHeight();
   const { setNotes } = useNotes();
   const [showModal, setShowModal] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -87,14 +85,14 @@ const NoteDetail = props => {
   return (
     <>
       <ScrollView
-        contentContainerStyle={[styles.container, { paddingTop: headerHeight }]}
+        contentContainerStyle={[styles.container, { paddingTop: 20 }]}
       >
         <Text style={styles.time}>
           {note.isUpdated
-            ? `Updated At ${formatDate(note.time)}`
-            : `Created At ${formatDate(note.time)}`}
+            ? `Diperbarui pada ${formatDate(note.time)}`
+            : `Dibuat pada ${formatDate(note.time)}`}
         </Text>
-        <Text style={styles.title}>{note.title}</Text>
+        <Text style={[styles.title, {paddingTop: 10}]}>{note.title}</Text>
         <Text style={styles.desc}>{note.desc}</Text>
       </ScrollView>
       <View style={styles.btnContainer}>
@@ -132,13 +130,13 @@ const styles = StyleSheet.create({
   },
   time: {
     textAlign: 'right',
-    fontSize: 12,
-    opacity: 0.5,
+    fontSize: 14,
+    fontWeight: '500'
   },
   btnContainer: {
     position: 'absolute',
     right: 15,
-    bottom: 50,
+    bottom: 15,
   },
 });
 
